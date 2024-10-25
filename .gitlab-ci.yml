@@ -2,6 +2,16 @@ stages:
   - build
   - test
 
+variables:
+  MYSQL_ROOT_PASSWORD: root_password
+  MYSQL_DATABASE: yii2basic
+  MYSQL_USER: yii2
+  MYSQL_PASSWORD: yii2_password
+
+services:
+  - name: mariadb:10.4
+    alias: db
+
 build:
   stage: build
   script:
