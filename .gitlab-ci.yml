@@ -1,0 +1,23 @@
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - docker build -t yii2-app-basic .
+  artifacts:
+    paths:
+      - vendor/
+  only:
+    - develop
+
+test:
+  stage: test
+  script:
+    - docker run -d -p 8080:80 yii2-app-basic
+    - docker exec -it yii2-app-basic php vendor/bin/codecept run
+  dependencies:
+    - build
+  only:
+    - develop
